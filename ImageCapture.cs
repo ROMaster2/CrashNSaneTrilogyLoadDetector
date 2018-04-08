@@ -52,10 +52,10 @@ namespace CrashNSaneLoadDetector
 			using (var graphics = Graphics.FromImage(destImage))
 			{
 				graphics.CompositingMode = CompositingMode.SourceCopy;
-				graphics.CompositingQuality = CompositingQuality.HighQuality;
-				graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-				graphics.SmoothingMode = SmoothingMode.HighQuality;
-				graphics.PixelOffsetMode = PixelOffsetMode.HighQuality;
+				graphics.CompositingQuality = CompositingQuality.HighSpeed;
+				graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
+				graphics.SmoothingMode = SmoothingMode.HighSpeed;
+				graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
 
 				using (var wrapMode = new ImageAttributes())
 				{
@@ -97,10 +97,12 @@ namespace CrashNSaneLoadDetector
 
 				//Compute space occupied by black border relative to total width
 				var adjust_factor = ((float)(device_width - black_bar_width_total) / (float)device_width);
-				info.actual_crop_size_x *= adjust_factor;
-				info.actual_offset_x *= adjust_factor;
-			}
-			else
+				info.actual_crop_size_x = device_width;
+				info.actual_offset_x *= 0;
+                info.actual_crop_size_y = device_height;
+                info.actual_offset_y *= 0;
+            }
+            else
 			{
 
 				var image_region = (float)device_width / (info.captureAspectRatio);
@@ -110,8 +112,10 @@ namespace CrashNSaneLoadDetector
 
 				//Compute space occupied by black border relative to total width
 				var adjust_factor = ((float)(device_height - black_bar_height_total) / (float)device_height);
-				info.actual_crop_size_y *= adjust_factor;
-				info.actual_offset_y *= adjust_factor;
+                info.actual_crop_size_x = device_width;
+                info.actual_offset_x *= 0;
+                info.actual_crop_size_y = device_height;
+				info.actual_offset_y *= 0;
 			}
 
 
@@ -150,11 +154,11 @@ namespace CrashNSaneLoadDetector
 			if (bounds.Width <= 0)
 				return new Bitmap(1, 1);
 
-			var result = new Bitmap(300, 100);
+			var result = new Bitmap(64, 64);
 
 			using (var g = Graphics.FromImage(result))
 			{
-				g.CopyFromScreen(new Point(bounds.Width / 2, bounds.Height / 2), new Point(bounds.X, bounds.Y), new Size(300, 100));
+				g.CopyFromScreen(new Point(bounds.Width / 2, bounds.Height / 2), new Point(bounds.X, bounds.Y), new Size(64, 64));
 			}
 
 			return result;

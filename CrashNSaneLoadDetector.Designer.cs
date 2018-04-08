@@ -426,8 +426,8 @@
 			this.Controls.Add(this.matchDisplayLabel);
 			this.Controls.Add(this.imageDisplay);
 			this.Controls.Add(this.startButton);
-			this.Name = "CrashNSaneLoadDetector";
-			this.Text = "Crash N Sane Trilogy Load Detector";
+			this.Name = "GenericLoadDetector";
+			this.Text = "Generic Load Detector (Prototype)";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CrashNSaneLoadDetector_FormClosing);
 			((System.ComponentModel.ISupportInitialize)(this.imageDisplay)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.previewPictureBox)).EndInit();
